@@ -30,9 +30,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.Optional;
-import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -53,10 +51,10 @@ public class ConsulDynamicConfigurationTest {
         consul = ConsulStarterBuilder.consulStarter()
                 .build()
                 .start();
-        configCenterUrl = URL.valueOf("consul://127.0.0.1:" + consul.getHttpPort());
+        configCenterUrl = URL.valueOf("consul://localhost:" + consul.getHttpPort());
 
         configuration = new ConsulDynamicConfiguration(configCenterUrl);
-        client = Consul.builder().withHostAndPort(HostAndPort.fromParts("127.0.0.1", consul.getHttpPort())).build();
+        client = Consul.builder().withHostAndPort(HostAndPort.fromParts("localhost", consul.getHttpPort())).build();
         kvClient = client.keyValueClient();
     }
 
@@ -74,14 +72,6 @@ public class ConsulDynamicConfigurationTest {
         // test does not block
         assertEquals("bar", configuration.getConfig("foo", "dubbo"));
         Assertions.assertNull(configuration.getConfig("not-exist", "dubbo"));
-    }
-
-    @Test
-    public void testPublishConfig() {
-        configuration.publishConfig("value", "metadata", "1");
-        // test equals
-        assertEquals("1", configuration.getConfig("value", "/metadata"));
-        assertEquals("1", kvClient.getValueAsString("/dubbo/config/metadata/value").get());
     }
 
     @Test
@@ -113,11 +103,13 @@ public class ConsulDynamicConfigurationTest {
     }
 
     @Test
+    public void testPublishConfig() {
+        configuration.publishConfig("foo", "value1");
+        Assertions.assertEquals("value1", configuration.getString("/dubbo/config/dubbo/foo"));
+    }
+
+    @Test
     public void testGetConfigKeys() {
-        configuration.publishConfig("v1", "metadata", "1");
-        configuration.publishConfig("v2", "metadata", "2");
-        configuration.publishConfig("v3", "metadata", "3");
-        // test equals
-        assertEquals(new TreeSet(Arrays.asList("v1", "v2", "v3")), configuration.getConfigKeys("metadata"));
+
     }
 }

@@ -16,8 +16,6 @@
  */
 package org.apache.dubbo.config.annotation;
 
-import org.apache.dubbo.common.constants.RegistryConstants;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -281,11 +279,4 @@ public @interface DubboReference {
      * @since 2.7.3
      */
     String id() default "";
-
-    /**
-     * @return The service names that the Dubbo interface subscribed
-     * @see RegistryConstants#SUBSCRIBED_SERVICE_NAMES_KEY
-     * @since 2.7.8
-     */
-    String[] services() default {};
 }

@@ -67,9 +67,9 @@ public class ConfigManager extends LifecycleAdapter implements FrameworkExt {
 
     public static final String NAME = "config";
 
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final Map<String, Map<String, AbstractConfig>> configsCache = newMap();
 
-    final Map<String, Map<String, AbstractConfig>> configsCache = newMap();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public ConfigManager() {
     }
@@ -369,15 +369,6 @@ public class ConfigManager extends LifecycleAdapter implements FrameworkExt {
         write(() -> {
             this.configsCache.clear();
         });
-    }
-
-    /**
-     * @throws IllegalStateException
-     * @since 2.7.8
-     */
-    @Override
-    public void destroy() throws IllegalStateException {
-        clear();
     }
 
     /**

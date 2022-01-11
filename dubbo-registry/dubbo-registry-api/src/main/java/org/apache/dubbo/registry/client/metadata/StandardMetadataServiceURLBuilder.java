@@ -37,7 +37,6 @@ import static org.apache.dubbo.registry.client.metadata.ServiceInstanceMetadataU
  * @since 2.7.5
  */
 public class StandardMetadataServiceURLBuilder implements MetadataServiceURLBuilder {
-    
     public static final String NAME = "standard";
 
     /**

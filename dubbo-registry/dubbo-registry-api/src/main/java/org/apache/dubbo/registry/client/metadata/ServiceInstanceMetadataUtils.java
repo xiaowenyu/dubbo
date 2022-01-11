@@ -207,10 +207,10 @@ public class ServiceInstanceMetadataUtils {
                 || metadata.containsKey(METADATA_SERVICE_URLS_PROPERTY_NAME);
     }
 
-    public static void setEndpoints(ServiceInstance serviceInstance, Map<String, Integer> protocolPorts) {
+    public static void setEndpoints(ServiceInstance serviceInstance, Map<String, Integer> protocolPortss) {
         Map<String, String> metadata = serviceInstance.getMetadata();
         List<Endpoint> endpoints = new ArrayList<>();
-        protocolPorts.forEach((k, v) -> {
+        protocolPortss.forEach((k, v) -> {
             Endpoint endpoint = new Endpoint(v, k);
             endpoints.add(endpoint);
         });

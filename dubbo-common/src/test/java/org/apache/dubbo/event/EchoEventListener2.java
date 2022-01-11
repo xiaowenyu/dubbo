@@ -41,7 +41,7 @@ public class EchoEventListener2 extends Vector<EventListener<Event>> implements 
 
     @Override
     public int getPriority() {
-        return -1;
+        return 0;
     }
 
     public int getEventOccurs() {

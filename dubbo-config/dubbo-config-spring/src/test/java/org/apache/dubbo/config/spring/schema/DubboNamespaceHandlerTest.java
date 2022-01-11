@@ -49,12 +49,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class DubboNamespaceHandlerTest {
     @BeforeEach
     public void setUp() {
-        ApplicationModel.reset();
+        ApplicationModel.getConfigManager().clear();
     }
 
     @AfterEach
     public void tearDown() {
-        ApplicationModel.reset();
+        ApplicationModel.getConfigManager().clear();
     }
 
     @Configuration

@@ -17,13 +17,8 @@
 package org.apache.dubbo.metadata;
 
 import org.apache.dubbo.common.URL;
-import org.apache.dubbo.common.extension.SPI;
-import org.apache.dubbo.common.lang.Prioritized;
 
 import java.util.List;
-
-import static org.apache.dubbo.common.constants.CommonConstants.DEFAULT_METADATA_STORAGE_TYPE;
-import static org.apache.dubbo.common.extension.ExtensionLoader.getExtensionLoader;
 
 /**
  * The exporter of {@link MetadataService}
@@ -33,8 +28,7 @@ import static org.apache.dubbo.common.extension.ExtensionLoader.getExtensionLoad
  * @see #unexport()
  * @since 2.7.5
  */
-@SPI(DEFAULT_METADATA_STORAGE_TYPE)
-public interface MetadataServiceExporter extends Prioritized {
+public interface MetadataServiceExporter {
 
     /**
      * Exports the {@link MetadataService} as a Dubbo service
@@ -63,38 +57,5 @@ public interface MetadataServiceExporter extends Prioritized {
      * @return if {@link #export()} was executed, return <code>true</code>, or <code>false</code>
      */
     boolean isExported();
-
-    /**
-     * Does current implementation support the specified metadata type?
-     *
-     * @param metadataType the specified metadata type
-     * @return If supports, return <code>true</code>, or <code>false</code>
-     * @since 2.7.8
-     */
-    default boolean supports(String metadataType) {
-        return true;
-    }
-
-    /**
-     * Get the extension of {@link MetadataServiceExporter} by the type.
-     * If not found, return the default implementation
-     *
-     * @param metadataType the metadata type
-     * @return non-null
-     * @since 2.7.8
-     */
-    static MetadataServiceExporter getExtension(String metadataType) {
-        return getExtensionLoader(MetadataServiceExporter.class).getOrDefaultExtension(metadataType);
-    }
-
-    /**
-     * Get the default extension of {@link MetadataServiceExporter}
-     *
-     * @return non-null
-     * @since 2.7.8
-     */
-    static MetadataServiceExporter getDefaultExtension() {
-        return getExtension(DEFAULT_METADATA_STORAGE_TYPE);
-    }
 }
 

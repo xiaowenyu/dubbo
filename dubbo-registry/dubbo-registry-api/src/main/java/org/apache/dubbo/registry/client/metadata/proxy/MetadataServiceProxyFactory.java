@@ -31,6 +31,7 @@ import static org.apache.dubbo.common.extension.ExtensionLoader.getExtensionLoad
  * @since 2.7.5
  */
 @SPI(DEFAULT_METADATA_STORAGE_TYPE)
+
 public interface MetadataServiceProxyFactory {
 
     /**

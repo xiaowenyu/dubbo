@@ -63,12 +63,7 @@ public interface PathUtils {
         if (index > -1) {
             normalizedPath = normalizedPath.substring(0, index);
         }
-
-        while (normalizedPath.contains("//")) {
-            normalizedPath = replace(normalizedPath, "//", "/");
-        }
-
-        return normalizedPath;
+        return replace(normalizedPath, "//", "/");
     }
 
 }

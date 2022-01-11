@@ -52,13 +52,13 @@ public class EnableDubboTest {
 
     @BeforeEach
     public void setUp() {
-        ApplicationModel.reset();
+        ApplicationModel.getConfigManager().clear();
         context = new AnnotationConfigApplicationContext();
     }
 
     @AfterEach
     public void tearDown() {
-        ApplicationModel.reset();
+        ApplicationModel.getConfigManager().clear();
         context.close();
     }
 
